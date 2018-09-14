@@ -1,0 +1,92 @@
+#Data Movement Commands
+=======================
+
+#MOV:
+-----
+	Syntax:	mov <dest>, <src>
+	        <dest> must be at least as big as <source>.
+
+	Example: mov ecx, 43	; copies the value 43 to ecx register. Its an example to immediate source data addressed using immediate
+				  addressing.
+		 mov ebx, len	; copies the value from variable len to ebx register by memory addressing.
+		 mov edx, eax	; copies the current value stored in eax register to edx register.
+
+	Note: When data is moved between two registers, both register should be of same size. So,
+		mov rbx, rax	; is correct. While,
+		mov rbx, eax	; will cause assembler error.
+	
+	Note1: MOV can't initialize a variable with immediate data. Thus: mov var1, 0x63a9; is an invalid statement.
+
+#MOVSX, MOVZX, MOVSXD:
+----------------------
+	MOVSX, MOVZX and MOVSXD all copy data from smaller sections(byte, word or double word) of register and copies it to a larger section
+	(word, double word or quad word) of register.
+
+	MOVSX = move byte/word, sign extended.
+	Syntax: movsx <dest-reg>, <src-reg>
+	MOVSX sign-extends the value of <src-reg> to bigger <dest-reg>. It means MOVSX sets all the upper bits of the <dest> register equal to
+	the most significant bit or msb of <src-reg>. In 2's complement system this preserves the value and sign of the number in <src-reg>.
+	For Example:
+		mov dl, 0xd3	;0xd3 = 0b11010011 = - 45 in 2's complement system.
+		movsx rbx, dl	;$rbx = 0xffffffffffffffd3, which is -45 in 64-bit. So, MOVSX copied the msb = 1 to all 48 upper bits of rbx.
+
+		mov al, 0x16	;0x16 = 0b00010110 = 22. Which is an unsigned number as msb = 0.
+		movsx rcx, al	;$rcx = 0x16 = 22. So if <src-reg> hold an unsigned no. there's no sign to preserve and MOVSX acts like MOV.
+
+	MOVZX = move byte/word, zero extended.
+	Syntax: movzx <dest-reg>, <source>
+	MOVZX takes the value of samller <src-reg>'s value and fits it inside the bigger <dest-reg>, setting all the rest upper bits of the 
+	<dest-reg> to 0. Thus:
+		
+		movsx eax, 16c3;	Will result eax having the value 000016c3.
+		movsx rbx, 3d;		$rbx = 000000000000003d now.
+
+	MOVSXD = move double word, sign exended. MOVSXD is a double word extension of MOVSX.
+	Syntax: movsxd <dest-reg>, <double-word-source>
+	Example: movsxd rcx, 0xabcd59ef;	Result in $rcx = ffffffffabcd59ef
+	
+	There is no "MOVZXD" command for double word. This is because if <dest-reg> is 64-bit but <src> is 32-bit(of any type of data),MOV
+	automatically zeros bit 63-32 of <dest-reg>. Example:
+		mov rbx, 0x1234567800000000
+		mov rbx, 0xabcdef12
+
+	sets rbx to 0xabcdef12, removing all its upper bits to zero.
+	
+
+#Conditional move instructions:
+-------------------------------
+	There are many conditional move instructions in x86_64 instruction set, some common one's are:
+		_________________________________________________________________
+		| Instruction	| Effect                                        |
+		-----------------------------------------------------------------
+		| cmovz		| Move if Zero Flag is set.			|
+		-----------------------------------------------------------------
+		| cmovnz	| Move if Zero Flag is not set.			|
+		-----------------------------------------------------------------
+		| cmovl		| Move if result is -ve, raising Sign Flag.	|
+		-----------------------------------------------------------------
+		| cmovle	| Move if result is -ve or zero, ie: Sign Flag	|
+		|		| and Zero Flags are both raised.		|
+		-----------------------------------------------------------------
+		| cmovg		| Move if result is +ve.			|
+		-----------------------------------------------------------------
+		| cmovge	| Move if result is zero or +ve, ie: Sing Flag	|
+		|		| is zero, but Zero Flag is up.			|
+		-----------------------------------------------------------------
+	These conditional move instruction are usually faster than branching instructions, as branching works by branch prediction, a wrong
+	prediction will require interrupting, flashing and reloading instruction pipeline, wasting many clock cycles.
+	Example:
+		mov	rbx, rax ; Save original value of RAX to RBX
+		neg	rax	 ; Negate RAX
+		cmovl	rax, rbx ; Restore the original value of rax if it holds a -ve value.
+
+#XCHG:
+------
+	Syntax: xchg <pos1> <pos2>
+		Exchanges values between <pos1> and <pos2>. <pos1> and <pos2> can be two registers, differet half of same registers, two
+		varaibles etc. The only catch is <pos1> and <pos2> must have same size.
+
+	Example: mov ebx, 0x6fce
+		 xchg bh, bl
+		 bh and bl are respectively last 8-15 bits and 0-7 bits of 32-bit ebx register. This exchange results in 0x6fce being reversed
+		 in ebx register, becoming 0xce6f. Another xchg operation will restore the value to 0x6fce.

@@ -1,0 +1,128 @@
+#Arithmetic Operators:
+======================
+
+#ADD:
+-----
+	Syntax: add <dest>, <src>
+		Adds the current value in <source> with the current value of <dest> and puts the result in <dest>. ADD leaves <source> unch-
+		anged just as MOV. As before <dest> must be at least as large as <source>.
+
+	Example: mov edx, 1234
+		 mov ecx, 6291
+		 add edx, ecx; stores 7525 = (1234 + 6291) in edx, leaves ecx unchanged.
+
+#SUB:
+-----
+	Syntax: sub <dest>, <src>
+		The substraction command in x86_64 assembly. Works just as ADD.
+
+	Example: mov eax, 1234
+		 sub [var], eax	;substracts the value of eax from [var] and stores the substraction result to "var".
+
+Note: One of the operand of ADD or SUB must be a register.
+
+#NEG:
+-----
+	Syntax: neg <operand>
+	NEG flips the sign of the operand by converting it to its 2's complement.
+
+	Example: mov eax, 0x2a	; 0x2a = 42
+		 neg eax
+		-   -   -
+		 (gdb) p/x $eax		||	0x2a 	  = 01001010
+		 $9 = 0xffffffb6	||	1's compl = 10110101
+		 (gdb) p $eax		||	2's compl = 10110101
+		 $10 = -42  		||		          +1
+					||		  ----------
+					||		  = 10110110 = 0xb6
+
+#INC:
+-----
+	Equivalent to ++ operator in C family languages.
+	syntax:	inc <val>
+	example:
+		inc ecx; increment the current value stored in ecx by 1.
+		inc len; increment the current value of the variable len by 1, same as len++.
+
+#DEC:
+-----
+	Arithemtic pair of INC. Equivalent to -- operator in C family languages.
+	Syntax: dec <val>
+	example:
+		dec eax; decrement the current value stored in eax by 1.
+		dec rld; decrement the current value of the variable rld by 1, same as rld--.
+
+Note: INC and DEC donot affect the carry flag, thus can't be used to achieve arbitary precision.
+
+
+#MUL:
+-----
+	Syntax: mul <multiplier>
+
+	MUL is the multiplication command for unsigned numbers. Multiplication consists of two factors and one products. MUL explicitely takes
+	only one of these factors. The other factor is implicitely taken as rax register. The product is stored in rax. But if the product is 
+	larger than 64-bit then its stored in rdx:rax, lower 64-bits kept in rax, rest of the higher bits are in rdx. Example:
+
+		mov rax, 0x123456789abcdef1
+		mul qword [a]	; a = 256 = 0x100
+		  -    -    -
+		(gdb) p/x $rax 				|
+		$7 = 0x3456789abcdef100			| So the actual number is rdx:rax = 0x123456789abcdef100
+		(gdb) p/x $rdx 				| For, 0x123456789abcdef1 X 0x100 = 0x123456789abcdef100
+		$8 = 0x12				|
+
+	The only explicit operand of MUL can be a register of memory data. In case of memory data the size of the data must be declared in the
+	operation. In both cases, multiplication takes places between the explicit operand and the same sized portion of rax, zeroing out rest
+	of the higher bits of rax and rdx if necessary. Example:
+
+		mov rax, 0x123456789abcdef1
+		mov rdx, 0x1010defc00000000 ; rdx is initialized just to demonstrate what happens to the upper bits.
+		mov ecx, [a]
+		mul ecx
+		  -    -    -
+		(gdb) p/x $rax			| Multiplication took place not between rax and ecx, but between eax and ecx. The overflow 
+		$7 = 0xbcdef100			| bits of resultant are stored in edx, not in rdx, zeoring out bit 63-32 of both rax and rdx.
+		(gdb) p/x $rdx			| 0x9abcdef1 X 0x100 = 0x9abcdef100
+		$8 = 0x9a			| edx:eax = 0x9abcdef100
+
+	The same would've happened if the memory data [a] was declared double-word in the previous example. MUL raises Carry Flag and Overflow
+	flag only when the product is larger than 128-bit, overflowing rdx:rax.
+
+#IMUL:
+------
+	IMUL multiplies signed integers. There are three different syntax that IMUL supports:
+
+	Syntax1: imul <operand>
+	This works just as MUL. The only difference is imul takes each operand, explicit and implicit as signed integer. To IMUL 0xa8 = -90, 
+	the 2's complement of 0x5a = 90, but MUL reads 0xa8 as 164.
+
+	Syntax2: imul <dest> <multiplier>
+	In this syntax of IMUL, the implicit multiplier, which acts as the source can be specified. But this time product can only limited to
+	64-bit, CF and OF is raised when the product crosses this limit.
+	Example:
+		imul r8, [b]
+	note: Here the premultiplier must be a register(duh!) and the size(b/w/dw/qw) of the premultiplier determines the size of the product
+	as both are put in the same register. The postmultiplier can be a register, a variable or an immediate data.
+
+	Syntax3: imul <dest> <premultiplier> <postmultiplier>
+	This is the most flexible form of IMUL, all three operands can be specified seperately here. Only constrain is that premultiplier must
+	be a register or a memory data and the post multiplier must be a immediate value. The destination must have to be a register as well.
+	Like the two operand version, product can be highest 64-bit here, any bigger and the CF, OF will be raised.
+	
+#DIV:
+-----
+	Syntax: div <divisor>
+	DIV is the division operator for unsigned integer, its complementary to MUL in every aspect. The implicit operands are again rax and
+	rdx and the size of the <divisor> will determine what sized portion of rdx:rax will used as divident. Upon division, the quotient is
+	stored in rax/eax/ax/al and the remainded in rdx/edx/dx/dl depending on the size of <divisor>. 
+	Example:
+		div (dword) [b]
+	DIV doesn't affect CF or OF.
+
+#IDIV:
+------
+	Syntax: idiv <divisor>
+	Unlike IMUL, IDIV have only one syntax. IDIV works as the version of DIV for signed integer, all the rest is same.
+	Example:
+		idiv (qword)[a]
+	Like DIV, IDIV doesn't raise CF or OF flag.

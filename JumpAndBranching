@@ -1,0 +1,28 @@
+#Jump Operators:
+================
+
+#JNZ:
+-----
+	Jump if not zero. Examines the Zero Flag. If ZF is set, no jump is made and program continues. If ZF is not set, then jump condition
+	is fulfilled and program jump to lebel.
+	syntax:
+		lebel: statement(s)
+			.
+			.
+			.
+		jnz lebel
+	example:
+	1	mov eax, 5
+	2	DoMore: dec eax
+	3	jnz DoMore	; Program will keep jumping back to line 2 and decrement eax until its 0.
+				; This is equivalent to: while(var!=0) var--;
+
+#JMP:
+-----
+	JMP is the unconditional jump command. This is the underlying CPU command of "goto" and just like "goto" its a one way ticket to hell.
+	syntax:	Similar to conditional jump statements.
+		lebel: statement(s)
+			.
+			.
+			.
+		jmp lebel
