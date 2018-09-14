@@ -1,0 +1,91 @@
+#Operand data and addressing:
+=============================
+
+#Data Types:
+------------
+There are three type of data: Immediate data, Register data and Memory data.
+
+"Immediate data" are embedded in the source code and is accessed using immediate addressing. Example:
+	mov eax, 43	; here 43 is immediate data.
+
+"Register data" are current value held in a register, this is accessed using register addressing. For example:
+	mov eax, 0x5f139a43
+	add bx, ax 	; this adds 0x5f13, the current value of ax with the current value of bx.
+
+"Memory data" are held in the part of system memory that is "owned" by the program. Unlike register data, data in one memory location
+can't be moved to another memory location directly. Thus:
+
+	mov len, index      ; is invlid. Here "len" and "index" are variables. Variables are representative of memory locations.
+
+This is the reason why in high level languages its impossible to exchange the value of two variables with one instruction. But its perfectly
+valid to copy a register data or an immediate data to memory. Thus:
+
+	mov len, edx	and	mov index, 43;	 are valid.
+
+
+#Declaring a memory data:
+-------------------------
+Memory data are variables and constants. In an assembly program variables can be declared in two places:
+	1) Data section - Only initialized data, hence initialized variables and constants.
+	2) BSS section - stands for Block Started with Symbols. Holds uninitialized variables.
+
+Declaration of a memory data consists of two parts: Identifier and Data Defination Directive. Identifier is the variable name as programmers
+(not assembler or the executable) identify a memory data using this. The Data Define Directive is made up of the size of the variable followed
+by its value. Example:
+
+	BaseNo	  dq	12345688	; "BaseNo" is the variable name, dq = data quad-word is size, 12345688 is the value.
+	SysStr	  db	"Hello, World!"	; For a string or any type of array, size of individual items goes to the size field.
+
+#Accessing Data:
+----------------
+	In assembly languate syntax a register name such as "eax" represents the value within eax register. Similarly "[eax]" represents the
+value held the memory address designated by the value in eax register. Thus if the current value of eax is 0x0439 and the location of variable
+"length" in memory is 0x0439, then-
+
+	mov ebx, [eax]	; Will copy the value in "length" to ebx register.
+
+Specifying memory address like this can be vary flexible in syntax. Example:
+
+	mov eax, [edx+16]; copies the value held in memory located with an offset of 16 bytes from the memory address held in edx.
+	mov edx, [eax+ecx+9]; copies the value stored in memory address (eax+ecx+9) to edx.
+
+In C/C++ a variable and a pointer to the memory are two different type of data and are held in two different variables. Only exception is an
+array, the array name is a pointer to the beginning of the array. C-tyep strings are array of characters. Soi, the name of a C-type string is 
+a pointer to that string.
+
+In assembly every variable name is a reference to its memory location. The variable "length" actually represents its memory location, 0x0439.
+To get its value we gotto use the indirection notation: [lenghth]. Thus is the earlier example:
+
+	mov ebx, length		; Will store "length"'s memory address 0x0439 to ebx.
+	mov ebx, [length]	; Will move the value of "length" to ebx.
+
+#Accessing arry:
+----------------
+Like other variables, array names hold address to the starting point of the array.
+
+	Msg: db "Hello, world!"
+
+The variable Msg declared to hold a string "Hello, world!" actually holds the memory address of where the string begins. This is why it is
+declared as "db" meaning "data byte" indicating the size of the each character. The following command:
+
+	mov rcx, Msg
+
+copies the 64-bit address in Msg to rcx register. If instead:
+
+	mov rcx, [Msg]
+
+command was used, contents of Msg memory location would've copied to ecx. For a double word of data, it will be the ascii values representing
+the string "Hello, w"!
+
+	A single character have the size of a byte in ascii representation. Thus to copy just a single character in previous example, a byte
+sized section of a register have to be used:
+
+	mov cl, [Msg]
+
+will copy just the letter 'H' to ecx. This is bacause "cl" is the 0-7 bits of ecx and can hold no more than a byte.
+
+The size comparison is specially important while directly writting to memory. For example:
+	
+	mov [Msg], byte 'G'
+
+specifically commands to write a single byte to the memory location specified by Msg. This changes the message to "Gello, world!".
