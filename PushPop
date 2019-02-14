@@ -38,8 +38,9 @@ push/pop all the registers at once:
       general purpose register to stack in the order		      register except rsp, as rsp keeps the current stack address. The popping
       described in PUSHA.					      order is complementary to that described in pusha.
 
-In x86 architecture, stack ends at the higher memory location and grows towards lower memory location. So when ever something pushed to the stack, the 64-bit stack pointer RSP is decremented by the size of the data. For example "push ecx" decrements ESP by 4 bytes and copies the 32-bit(4 bytes) ECX value to the 4 bytes of space freed up.
-
+In x86 architecture, stack ends at the higher memory location and grows towards lower memory location. So when ever something pus-
+hed to the stack, the 64-bit stack pointer RSP is decremented by the size of the data. For example "push ecx" decrements ESP by 4
+bytes and copies the 32-bit(4 bytes) ECX value to the 4 bytes of space freed up.
 
 		  - - -                         	  - - -    			  - - -   		
 		  - - -	   				  - - -    	             	  - - -	  
