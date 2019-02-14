@@ -55,5 +55,5 @@ In x86 architecture, stack ends at the higher memory location and grows towards 
 
 POP operates exactly the opposite way. RSP is decremented equal to the operand size and the value is takes away from the stack to the destina-
 tion register/variable, just as shown in the figure. Similar thing happens for all other four pairs of instruction. For example PUSHAD decre-
-ments ESP by (32X16)= 512/8 = 64-bytes then transfers register values to the stack. Similarly POPAD increments ESP 64-bytes then discards the
-value corresponding to previous ESP value and restores all other 15 registers to the values saved in stack.
+ments ESP by (32X16)= 512/8 = 64-bytes then transfers register values to the stack. Similarly POPAD increments ESP 64-bytes, discards the
+value coresponding to previous ESP value and restores all other 15 registers to respective values saved in stack.
