@@ -1,0 +1,59 @@
+# PUSH and POP instructions:
+----------------------------
+Pushes or pops register values to or from the stack. A x86 CPU has five pair of push and pop instructins:
+
+#PUSH:
+------
+     Pushes a value to the stack from a designated 16/32/64-bit register or memory variable.
+      
+     Syntax: push <reg>		; Pushes the value stored in register <reg> to stack.
+	     push <mem-var>	; Pushes the value in variable <mem-var> to stack.
+#POP:
+-----
+     Fills the designated 16/32/64-bit register/memory variable by popping the same sized value off the stack.
+
+     syntax: pop <reg>		; Pop from stack to register <reg>.
+             pop <mem-var>	; Pop from stack to variable <mem-var>.
+
+
+These two are general purpose single step push and pop instructions. They push from or pop to any specified register/variable. The other four
+pairs of push/pop instuction are specifialized - two pairs of instruction to push/pop only the flag register "eflags" and other two pairs to
+push/pop all the registers at once:
+
+#PUSHF								#POPF
+      Pushes the 16 bit eflags register to stack.		     The complementary opcode of PUSHF. Pops last 16-bit value off the stack
+								     to the 16-bit eflags register as current flag status.	
+
+#PUSHFD								#POPFD
+      Pushed the 32 bit eflags register to stack.		     Like POPF, its the complementary of PUSHFD. Pops the 32-bit value off the
+								     top of stack to the 32-bit eflags register as current flag status.
+
+#PUSHA								#POPA
+      Pushes values from the lower 16-bit of all 16		      Pops 16-bit values and fills the lower 16-bit of all the general purpose
+      general purpose register to stack. The order is:		      register except rsp, as rsp keeps the current stack address. The popping
+      rax, rbx, rcx, rdx, rsi, rdi, rbp, rbp, r8 to r15.	      order is complementary to the pusha.
+
+#PUSHAD								#POPAD
+      Pushes values from the lower 32-bit of all 16		      Pops 16-bit values and fills the lower 32-bit of all the general purpose
+      general purpose register to stack in the order		      register except rsp, as rsp keeps the current stack address. The popping
+      described in PUSHA.					      order is complementary to that described in pusha.
+
+In x86 architecture, stack ends at the higher memory location and grows towards lower memory location. So when ever something pushed to the stack, the 64-bit stack pointer RSP is decremented by the size of the data. For example "push ecx" decrements ESP by 4 bytes and copies the 32-bit(4 bytes) ECX value to the 4 bytes of space freed up.
+
+
+		  - - -                         	  - - -    			  - - -   		
+		  - - -	   				  - - -    	             	  - - -	  
+		|________|                              |________|                     	|________|
+		|________|                              |________|                     	|________|
+		|________|    ECX = 0x35c29540          |________|                     	|________|
+		|________|	  push ECX       ESP--> |________|        	  	|________|
+		|________|     -------------->          |00110101|       pop ECX 	|________|
+		|________|                              |11000010|   -------------->   	|________|
+		|________|                              |10010101|                    	|________|
+     	 ESP-->	|________|                              |01001001|               ESP--> |________|
+							----------
+
+POP operates exactly the opposite way. RSP is decremented equal to the operand size and the value is takes away from the stack to the destina-
+tion register/variable, just as shown in the figure. Similar thing happens for all other four pairs of instruction. For example PUSHAD decre-
+ments ESP by (32X16)= 512/8 = 64-bytes then transfers register values to the stack. Similarly POPAD increments ESP 64-bytes then discards the
+value corresponding to previous ESP value and restores all other 15 registers to the values saved in stack.
