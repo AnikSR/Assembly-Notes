@@ -1,8 +1,22 @@
 #Jump Operators:
 ================
 
-#JNZ and JZ:
-------------
+<b>Unconditional Jump:</b>
+
+# JMP:
+------
+	JMP is the unconditional jump command. This is the underlying CPU command of "goto" and just like "goto" its a one way ticket to hell.
+	syntax:	Similar to conditional jump statements.
+		lebel: statement(s)
+			.
+			.
+			.
+		jmp lebel
+		
+<b>Conditional Jump:</b>
+
+# JNZ and JZ:
+-------------
 	Jump if not zero. Examines the Zero Flag. If ZF is set, no jump is made and program continues. If ZF is not set, then jump condition
 	is fulfilled and program jump to lebel.
 	syntax:
@@ -21,12 +35,4 @@
 	can trip off Zero Flag. It is the zeroing/not-zeroing process, by DEC or INC or whatever operation that sets ZF, no matter what
 	register it is operating on.
 
-#JMP:
------
-	JMP is the unconditional jump command. This is the underlying CPU command of "goto" and just like "goto" its a one way ticket to hell.
-	syntax:	Similar to conditional jump statements.
-		lebel: statement(s)
-			.
-			.
-			.
-		jmp lebel
+
