@@ -1,8 +1,8 @@
 #Jump Operators:
 ================
 
-#JNZ:
------
+#JNZ and JZ:
+------------
 	Jump if not zero. Examines the Zero Flag. If ZF is set, no jump is made and program continues. If ZF is not set, then jump condition
 	is fulfilled and program jump to lebel.
 	syntax:
@@ -16,6 +16,10 @@
 	2	DoMore: dec eax
 	3	jnz DoMore	; Program will keep jumping back to line 2 and decrement eax until its 0.
 				; This is equivalent to: while(var!=0) var--;
+				
+	JZ - Jump if zero, works exactly the same as JNZ, but it makes the jump when ZF is set. Note: zeroing any register from RAX to R15
+	can trip off Zero Flag. It is the zeroing/not-zeroing process, by DEC or INC or whatever operation that sets ZF, no matter what
+	register it is operating on.
 
 #JMP:
 -----
