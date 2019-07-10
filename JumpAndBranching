@@ -1,19 +1,73 @@
 #Jump Operators:
 ================
+Jump and compare instructions are how loop and branching are created in assembly language. There are different type of jump instructions:
+  
+1) Unconditional jump: There is just one unconditional jump instruction:
 
-<b>Unconditional Jump:</b>
+JMP - Unconditional jump.
 
-# JMP:
-------
-	JMP is the unconditional jump command. This is the underlying CPU command of "goto" and just like "goto" its a one way ticket to hell.
-	syntax:	Similar to conditional jump statements.
-		lebel: statement(s)
-			.
-			.
-			.
-		jmp lebel
-		
-<b>Conditional Jump:</b>
+syntax: Both unconditional and conditional jump statements have same syntax:
+        <lebel>: statement(s)
+            .
+            .
+            .
+        jmp <lebel>
+
+JMP is the underlying CPU instruction for C "goto" command. However unlike in C, JMP in assembly is not a one way ticket to hell! JMP actually
+takes memory address as argument. This memory address can be a immediate data or contained in a register or can be presented as a lebel. So,
+
+        jmp 0x6000c4
+or,
+        jmp ecx
+
+Are also possible and valid statements in x86 assembly language.
+
+Others are conditional jump. Conditional jumps tests various flags and either makes the jump or not. These can be further divided into various
+ways:
+
+Conditional Jump:
+
+2) Following Jump instruction act based on single specific flags:
+
+JZ  - Jump if zero. Jump to [label] if ZF is set.
+JNZ - Jump if not zero. Jump to [label] if ZF is not set.
+JP  - Jump if Parity. Jump to [label] if PF is set.
+JPE - Jump if Parity Even. In even parity system, its synonymous with JP.
+JNP - Jump if Not Parity. Jump to [label] if PF is not set.
+JPO - Jump if Parity Odd. In even parity system, its synonymous with JNP.
+JO  - Jump if Overflow. Jump to [label] if OF is set.
+JNO - Jump if Not Overflow. Jump to [label] if OF is not set.
+
+Similarly JC and JNC acts based on CF, JO and JNO acts based on OF, JS and JNS acts based on SF etc.
+
+3) Rest of the jump instructions usually follows the compare instruction. Most of these respond to more than one flags. There's just one
+   compare instruction:
+
+    CMP - Compare.
+
+Syntax: <label> : statement(s)
+                        .
+                        .
+                        .
+                  cmp rcx, rbx
+                  jne <label>
+
+The jump instructions that follow CMP are usually used for branching. Many of these are synonymous to each other. Some of them are:
+
+JA  - Jump if above.                    Syn.    JNBE - Jump if not bellow or equal.     trips off by ZF=0 or SF=OF.
+JAE - Jump if above or equal.           Syn.    JNB  - Jump if not bellow.              trips off by SF=OF.
+JB  - Jump if bellow.                   Syn.    JNAE - Jump if not above or equal.      trips off by SF!=OF.
+JBE - Jump if bellow or equal.          Syn.    JNA  - Jump if not above.               trips off by ZF=1 or SF!=OF.
+JG  - Jump if greater.                  Syn.    JNLE - Jump if not less than or equal.  trips off by ZF=0 or SF=OF.
+JGE - Jump if greater than or equal.    Syn.    JNL  - Jump if not less.                trips off by SF=OF.
+JL  - Jump if less.                     Syn.    JNGE - Jump if not greater or equal.    trips off by SF!=OF.
+JLE - Jump if less thant or equal.      Syn.    JNG  - Jump if not greater.             trips off by ZF=1, SF!=OF.
+
+JE  - Jump if equal.                    Syn.    JZ  - Jump if zero.                     trips off by ZF=1.
+JNE - Jump if not equal.                Syn.    JNZ - Jump if not zero.                 trips off by ZF=0.
+
+
+As an example of conditional jump instruction, JNZ and JZ is discussed bellow:
 
 # JNZ and JZ:
 -------------
@@ -31,8 +85,7 @@
 	3	jnz DoMore	; Program will keep jumping back to line 2 and decrement eax until its 0.
 				; This is equivalent to: while(var!=0) var--;
 				
-	JZ - Jump if zero, works exactly the same as JNZ, but it makes the jump when ZF is set. Note: zeroing any register from RAX to R15
-	can trip off Zero Flag. It is the zeroing/not-zeroing process, by DEC or INC or whatever operation that sets ZF, no matter what
-	register it is operating on.
+JZ - Jump if zero, works exactly the same as JNZ, but it makes the jump when ZF is set. Note: zeroing any register from RAX to R15 can trip off
+Zero Flag. It is the zeroing/not-zeroing process, by DEC or INC or whatever operation that sets ZF, no matter what register it is operating on.
 
 
