@@ -1,0 +1,21 @@
+# LEA - Load Effective Address
+
+Syntax:
+-------
+	lea <dest>, [<Base>+(<Index>*<Scale>)+<Displacement>]
+
+Description:
+------------
+LEA calculates the effective address in one pass and stores the result in <dest> register. The effective address formula has few bindings:
+
+1) Only base and index can be a register value.
+2) Only base address and displacement address can be supplied by a variable lebel. Only one variable lebel can be used inside the expression.
+3) Immediate values can be used in any number. Any combination of addition and multiplication can be used for immediate values.
+4) The destination operand must be a register. There's no restriction for 64/32/16/8-bit.
+
+Examples:
+	lea	rax,[rbx+rcx*2+64+32*2+64*4]; Only Base and Index are register value. Then any number of immediate values.
+	lea r15, [base+rbx*2+64]		; Only Base address is supplied by a variable lebel.
+	lea rax, [base+rcx*rax+64]		; Scale can't be a register value. This will not assemble.
+	lea rdx, [rax+rcx*2+rbx]		; Displacement is a register value, won't assemble.
+	lea [varia], [rax*2+rcx]		; Destination operand is a variable, won't assemble.
