@@ -71,7 +71,7 @@ Note: INC and DEC donot affect the carry flag, thus can't be used to achieve arb
 		(gdb) p/x $rdx 				| For, 0x123456789abcdef1 X 0x100 = 0x123456789abcdef100
 		$8 = 0x12				|
 
-	The only explicit operand of MUL can be a register of memory data. In case of memory data the size of the data must be declared in the
+	The only explicit operand of MUL can be a register of memory data. In case of memory data, the size of the data must be declared in the
 	operation. In both cases, multiplication takes places between the explicit operand and the same sized portion of rax, zeroing out rest
 	of the higher bits of rax and rdx if necessary. Example:
 
@@ -96,15 +96,15 @@ Note: INC and DEC donot affect the carry flag, thus can't be used to achieve arb
 	This works just as MUL. The only difference is imul takes each operand, explicit and implicit as signed integer. To IMUL 0xa8 = -90, 
 	the 2's complement of 0x5a = 90, but MUL reads 0xa8 as 164.
 
-	Syntax2: imul <dest> <multiplier>
-	In this syntax of IMUL, the implicit multiplier, which acts as the source can be specified. But this time product can only limited to
+	Syntax2: imul <dest>, <multiplier>
+	In this syntax of IMUL, the implicit multiplier which acts as the source can be specified. But this time product can only limited to
 	64-bit, CF and OF is raised when the product crosses this limit.
 	Example:
 		imul r8, [b]
 	note: Here the premultiplier must be a register(duh!) and the size(b/w/dw/qw) of the premultiplier determines the size of the product
 	as both are put in the same register. The postmultiplier can be a register, a variable or an immediate data.
 
-	Syntax3: imul <dest> <premultiplier> <postmultiplier>
+	Syntax3: imul <dest>, <premultiplier>, <postmultiplier>
 	This is the most flexible form of IMUL, all three operands can be specified seperately here. Only constrain is that premultiplier must
 	be a register or a memory data and the post multiplier must be a immediate value. The destination must have to be a register as well.
 	Like the two operand version, product can be highest 64-bit here, any bigger and the CF, OF will be raised.
