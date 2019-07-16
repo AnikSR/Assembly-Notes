@@ -88,4 +88,29 @@ As an example of conditional jump instruction, JNZ and JZ is discussed bellow:
 JZ - Jump if zero, works exactly the same as JNZ, but it makes the jump when ZF is set. Note: zeroing any register from RAX to R15 can trip off
 Zero Flag. It is the zeroing/not-zeroing process, by DEC or INC or whatever operation that sets ZF, no matter what register it is operating on.
 
+There's one conditional jump instruction that doesn't depend on any flag, instead it jumps based on the value of RCX register. In this aspect
+this isn't quiet a conditional jump, rather can be thought of the loop controlling jump instruction:
+
+# JCXZ - Jump if RCX is Zero.
+
+Syntax:
+-------
+    JCZX <label>
+
+For example:
+    mov rcx, 50
+    DoIt:
+        .   .   .
+        statements
+        .   .   .
+        dec rcx
+        jcxz AllDone
+        .   .   .
+        statements
+        .   .   .
+        jnz DoIt
+
+As can be seen jcxz works more to jump out of loop, it acts more like the "continue" keyword of C/C++, but responding only to one specific
+condition. For such property JCXZ is mostly used for nested loop.
+
 
