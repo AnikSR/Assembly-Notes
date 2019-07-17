@@ -1,0 +1,131 @@
+# STOSX - STOSB/STOSW/STOSD/STOSQ
+
+Syntax:
+-------
+	stosx
+	rep stosx
+
+Descripton:
+-----------
+STOSB/W/D/Q = Store String by Byte/Word/Double word/Quad word. This family of opcodes takes three implicit arguments:
+	1) The address of the destination string in RDI.
+	2) The value to be copied in the string in AL/AX/EAX/EAX.
+	3) The number of time the value to be copied in RCX.
+
+After preparing these registers with appropriate values, executing STOSB performs these:
+	1) The value stored in AL/AX/EAX/RAX is copied to the memory address pointed by RDI.
+	2) RDX is incremented by 1 so as to point to the next location in the string.
+
+STOSX only decrements RCX when used with the "rep" modifier. So "rep stosb" works like:
+	clear:
+		mov byte[rdi], al
+		inc rdi
+		dec ecx
+		jnz clear
+
+The direction of STOSX writes is determined by DF. When DF is set, STOSB copies AL from high memory to low memory. When DF is cleared,
+STOSB goes in the opposite direction. DF is 0 when CPU resets, so STOSB usually copied from low memory to high memory.
+
+
+# LOOP
+
+Syntax:
+-------
+	loop <label>
+
+Description:
+------------
+LOOP keeps jumping back to <label> until RCX is decremented to 0. So roughly it works like the combination of these instructions:
+
+	mov rcx, 17		|						|mov rcx, 17
+	DoIt:			|						|DoIt:
+		.   .   .	|						|	.   .   .
+		statements	|	Is equivalent to:	|	statements
+		.   .   .	|						|	.   .   .
+		dec rcx		|						|	loop DoIt
+		jnz DoIt	|						|
+
+Only LOOP does all these in one clock cycle.
+
+
+# MOVSX - MOVSB/MOVSW/MOVSD/MOVSQ
+
+Syntax:
+-------
+	movsx
+	rep movsx
+
+Description:
+------------
+MOVSB/W/D/Q - Move String by Byte/Word/Double word/Quad word. Like STOSX, MOVSX family of opcodes takes implicit oprands:
+	1) RSI holds the address for source string.
+	2) RDI holds the address for destination string.
+	3) RCX holds the number of bytes/words/double words/quad words to be copied from source string to destination string.
+
+After these register are ready with appropriate value, executing MOVSX performs the following:
+	1) The value stored in the memory location pointed to by RSI is copied to the memory location pointed to by RDI.
+	2) Both RSI and RDI moves one step forward to point to the next item of the string. If DF is set RSI and RDI are advanced from high memory
+	   to low memory. If DF is clear they are advanced from low memory to high memory.
+
+When used with "rep" modifier, movsx decrements rcx in addition the these steps, repeats until RCX=0.  So, when RSI, RDI and RCX are readay
+executing "rep movsb" basically performs these operations in one pass:
+
+DoIt:
+	mov al, [rsi]
+	mov [rdi], al
+	inc rsi
+	inc rdi
+	dec rcx
+	jnz DoIt
+
+However for larger sized data, usual inc doesn't work, in those cases rsi and rdi are adjusted according to size of the data.
+
+
+# REP / REPE / REPNE modifier
+
+Syntax:
+-------
+	rep <opcode>
+	repe <opcode>
+	repne <opcode>
+
+Description:
+------------
+REP <opcode> 	- Repeat this copcode until RCX decreases to 0.
+REPE <opcode> 	- Repeat this opcode until RDI=AL/AX/EAX/RAX. Exact size of register-A is determined by opcode.
+REPNE <opcode>	- Repeat this opcode until content of RDI is not equal to the content of register-A.
+
+
+# SCASX - SCASB/SCASW/SCASD/SCASQ
+
+Syntax:
+-------
+	scasx
+	repe scasx
+	repne scasx
+
+Description:
+------------
+SCASX - Scan Scring of size X=B(byte)/W(word)/D(double word)/Q(quad word). SCASX compared the content of RDI and register-A and advances RDI
+one step, the direction of this is determined by DF. So SCASX has these following implicit arguments:
+	1) RDI holds the starting address of the string to scan.
+	2) AL/AX/EAX/RAX holds the value to compare. The exact size of register-A is determined by size postfix of SCASX.
+	3) RCX holds The number of string elements to be scanned.
+
+When used without repe/repne SCASX just compares current value of RDI with the current value of register-A and advanced RDI properly. But when
+used with REPE/REPNE SCASX decrements RCX after each scan and continues until RCX is 0. So "repne scasb" basically works like:
+
+	; Setting up the registers.
+	mov rdi, String1
+	mov al, 0		; Searching for null byte.
+	mov rcx, 256	; Searchin upto 256 bytes of from the starting address.
+	xor rbx, rbx	; To advance RDI properly.
+	; Imitating REPNE SCASB
+	DoIt:
+		cmp rdi, al
+		mov rdi, [String1+rbx*1] ; Advancing rdi properly. The scan size acts as the multiplier.
+		inc rbx
+		dec rcx
+		jnz DoIt
+
+REPNE SCASB immitates all these in one instruction, running a tight loop in CPU.
