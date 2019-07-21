@@ -1,0 +1,33 @@
+There are few major difference between Intel and AT&T syntax of assembly language:
+
+1) In AT&T mnemonic, register names must be in lowercase. Whether in Intel syntax both lowercase and uppercase register names are acceptable.
+
+2) Register names in AT&T syntax must preceed by a '%' symbol. AX must be mentioned as %ax, RSP asn %rsp etc.
+
+3) Every opcode that take oparands, must end with a suffic that indicate the size of the operands in AT&T syntax. For example: "push rsp" in
+   Intel syntax becomes "pushq %rsp" in AT&T syntax. Note: opcodes that don't take opcodes, like call, ret etc don't take such suffix.
+
+4) The order of source and destination operand is reverse in AT&T syntax with respect to Intel syntax. For Intel syntax this relation have
+   been:
+   		<Opcode> <dest>, <source>
+
+   In AT&T syntax it becomes:
+	
+		<Opcode> <source>, <dest>
+
+   So, "mov rbx, rsp" in Intel syntax becomes "movq %rsp, %rbp" in AT&T syntax.
+
+5) In AT&T syntax, immediate operands always preceed by '$'. So, "mov rax, 256" in Intel syntax becomes "movq $356, %rax". When referenced
+   message string names are prefixed by '$' as well.
+
+6) Memory adressing is completely different in these two syntaxes. In Intel Syntax the memory addressing is the straight forward mathematical
+formula:
+	<base> + (<Index>*<Scale>)+<displacement>
+
+AT&T handles this with a special syntax:
+	+/-<displacement>(<base>, <index>, <scale>)
+
+Thus "rbp-16" in Intel syntax is "-16(%rbp)" in AT&T syntax. Similarly, "mov rcx, [rbx+rdi*2+28]" becomes "movq 28(%rbx, %rdi, $2), %rcx".
+Similarly "mov qword rax, [rbx-4]" becomes "movq -4(%rbx), %rax".
+
+7) In AT&T syntax comment delimiter is '#' instead of ';' in Intel syntax.
