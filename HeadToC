@@ -1,0 +1,50 @@
+# C function and Assmebly:
+==========================
+# Preparing for using C functions in assembly program:
+------------------------------------------------------
+- Each C function starts with pushing RBX, RSP, RBP, RSI, RDI to stack. Due to their spedial importance these five registers are sometimes
+  half jokingly called the "Sacred registers" of C.
+  
+- C functions return value in RAX register. If the return value is more than 64 bits, its returned in RDX:RAX format. Floating point return
+  values are returned in floating point stack. Other data structure such as array, structure, object etc are returned as pointer to these data
+  structures, so they are just 64-bit value.
+- Function parameters are pushed to stack in reversed order. So to call a function MyFunc(foo, bar, bas), stack have to be prepared like this:
+
+		push bas
+		push bar
+		push foo
+		call MyFunc
+
+- A function doesn't pop the parameters from the stack. So calling procedure must remove them after calling the function. This can be done by
+  popping or modifying the RSP with appropriate offset.
+
+
+# glibc stack frame:						   	|_____________________________|
+--------------------							| NULL = End of Argument list | 
+											   	-------------------------------
+					The stack					|			-	-	-		  |
+	|				_   _   _		  |			-------------------------------
+	|				_   _   _ 		  |		+24	|			Arg 3			  |
+	-----------------------------------			-------------------------------
+	| RBP+40: |	 	-   -   -		  |		+16 |			Arg 2			  |
+	-----------------------------------		 	-------------------------------
+	| RBP+32: |Ptr. to Env. var. tbl. |		+8	|			Arg 1			  |
+	-----------------------------------         -------------------------------
+	| RBP+24: |	  Ptr. to Arg. tbl.	  | ------>	|   Arg(0): Invocation text	  | 
+	-----------------------------------         -------------------------------
+	| RBP+16: |    Argument count	  |
+	-----------------------------------
+	| RBP+08: |	   Return Address	  |
+	-----------------------------------
+	| RBP+00: |			RBP			  |
+	-----------------------------------
+	| RBP-08: |			RBX			  |
+	-----------------------------------
+	| RBP-16: |			RSI			  |
+	-----------------------------------
+	| RBP-24: |	 		RDI			  |
+	-----------------------------------
+	| RBP-32: |	 	-   -   -		  |
+	-----------------------------------
+
+Thus from a C program, or a assembly program using C functions, command line arguments can be accessed by referencing RBP+24 twice.
