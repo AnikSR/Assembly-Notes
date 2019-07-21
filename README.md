@@ -12,3 +12,4 @@ These are my study notes on assembly language.
 6. Yasm user manual
 7. Using AS, The GNU Assembler
 8. Ata Elahi, Trevor Arjeski auth. ARM Assembly Language with Hardware Experiments
+9. Richard Blum Professional Assembly Language
