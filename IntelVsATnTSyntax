@@ -31,3 +31,5 @@ Thus "rbp-16" in Intel syntax is "-16(%rbp)" in AT&T syntax. Similarly, "mov rcx
 Similarly "mov qword rax, [rbx-4]" becomes "movq -4(%rbx), %rax".
 
 7) In AT&T syntax comment delimiter is '#' instead of ';' in Intel syntax.
+
+To end, assembly program written in AT&T syntax has the extension ".s", where those written in intel syntax has the extension ".asm".
