@@ -1,0 +1,15 @@
+	Package				Description
+	-------				-----------
+	addr2line			Convert address into filename and line number.
+	ar					Create, modify and extract file archieve.
+	as					Gnu assembler.
+	c++filt				Filer to demange C++ and Jave symbols.
+	gprof				Program to display program profiling information.
+	ld					Gnu linker.
+	nm					List symbols from object file.
+	objcopy				Copy and translate object files.
+	objdump				Display information from object file.
+	ranlib				Generate index to the contents of an archieve file.
+	size				List object size and total sizes.
+	strings				Display printable string found in the object file.
+	strip				Discard symbols from object file.

@@ -1,0 +1,12 @@
+Tools necessary for assembly programing and testing are:
+1) Assembler	  : Yasm, Gas
+2) Linker	  	  : ld
+3) Debugger	  	  : GDB
+4) Disassembler	  : objdump
+5) Profiling tool : time, gprof
+
+# time
+
+Syntax:
+-------
+	

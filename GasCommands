@@ -1,0 +1,25 @@
+	Parameters				Description
+	----------				-----------
+		-a					Specifies which listing to include in the output.
+		-D					Ignored. This option is accepted for the script compatibility with calls to other assembler.
+	--defsym				Define symbols and values before assembling source code.
+		-f					Fast assemble. Skip white space and comment preprocessing.
+	-gstabs					Generate debugging information for each source code line.
+	-gstabs+				Includes special gdb debugging information.
+		-I					Specify directories to search for include files. In short specify include path.
+		-J					Don't warn about signed overflow.
+		-K					Issues warning when difference table altered for long displacement.
+	-L  --keep-locals		Kepps local symbols in a symbol table.
+  --listing-lhs-width=N		Set the maximum width of the output column to N bytes.
+  --listing-lhs-width2=N	Set the maximum width of the output column for continous line to N bytes.
+  --listing-rhs-width=N		Set the maximum width of the input column to N bytes.
+  --listing-cont-lines=N	Set the maximum number of lines printed in a listing for a single line of input to N+1 bytes.
+  		-o					Specify the name of the output object file.
+		-R					Fold the data section into text section.
+	--statistics			Print the maximum space (in bytes) and total time (in sec.) used by the assembler.
+		--					Use stdin as source file.
+	-W --no-warn			Suppress warning message.
+	--fatal-warning			Treat warnings as errors.
+	--warn					Don't suppress warning message of treat them as errors.
+	-v  -version			Print the version message.
+	--version				Print warning message and exit.
