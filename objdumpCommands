@@ -5,13 +5,13 @@
 	-C	--demangle[=style]			Demangle low-level symbols into user-level names.
 	-d	--disassemble				Display the assembler mnemonics for the machine instructions from "objfile".
 	-D	--dissassemble-all			Disassemble the content of all sections, not just those expected to contain instructions.
-	-e	--debugging-tags			Display debugging information in a format that compatibel with ctag tools.
+	-e	--debugging-tags			Display debugging information in a format that compatible with ctag tools.
 	-EL/-EB	--endian={big|little}			Specify the endianness of the object file.
-	-f	--file-headers				Display summery information from the overall header of each of the "objfile" file.
+	-f	--file-headers				Display summary information from the overall header of each of the "objfile" file.
 	-F	--file-offsets				When disassembling sections, whenever a symbol is displayed, also display the file offset of the region of data that is about to be dumped.
 	-g	--debugging				Display debugging information.
 	-G	--stabs					Display the content of the debugged section.
-	-h	--section-headers/--headers		Display summery information of from the section headers of the object file.
+	-h	--section-headers/--headers		Display summary information of from the section headers of the object file.
 	-i	--info					Display list showing all the architecture available.
 	-j	--section=[name]			Display information only for the section [name].
 	-l	--line-numbers				Label the output with source code line number.
