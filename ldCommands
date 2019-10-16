@@ -1,0 +1,48 @@
+	Parameters				Description
+	----------				-----------
+	-b	--format			Specifies the format of the object code input file.
+	-Bstatic				Use only static libraries.
+	-Bdynamic				Use only dynamic libraries.
+	-Bsymbolic				While creating a shared library, bind refences to global symbols.
+	-c	--mri-script		Read command from specified command files.
+	--cref					Output a cross-reference file.
+	-d						Assign space to command symbols even if relocatable output is specified.
+	--defsym				Create the specified global symbols in the output file.
+	--demangle				Demangle symbol names in error message.
+	-e	--entry				Use the specified symbol as the beginning of execution point for the program.
+	-E	--export-dynamic	For ELF format file, add all symbols to the dynamic symbol table.
+	-f	--auxilary			For ELF format shared objects, set the DT_AUXILARY name.
+	-F	--filer				For ELF format shared objects, set the DT_FILTER name.
+	-h /-soname				For ELF format shared objects, set the DT_SONAME name.
+	-b	--format			Specify the format of the object code nput file.
+	-i						Perform an incremental link.
+	-r	--relocatable		Generate a relocatable output, ie: generate an output that ld can take as input.
+	-rpath=<dir>			Add <dir> to runtime library search path.
+	-rpaht-link-<dir>		Specify a directory to to search for runtime shared library.
+	-shared/-Bshareable		Create a shared library. This is only supported for ELF, XCOFF and SunOS.
+	-S	--strip-debug		Omit debugger symbol information from output file.
+	-s	--strip-all			Omit all symbol information from output file.
+	--sort-common			This option tells ld to sort common symbols by alignment in ascending or descring order with =ascending/descending
+							option.
+	--sort-section=name		This option will apply "SORT_BY_NAME" to all wildcard section patter in the linker script.
+	--sort-section=alignmet	This option will apply "SORT_BY_ALIGNMENT" to all wildcard section patter in the linker script.
+	--split-by-file=<size>	Creates new output section for each input file when <size> is reached.
+	--split-by-reloc		Creates extra section in the output file based on count.
+	-T [filename]			Read command from the file [filename].
+	-Ttext					Use specific address as the starting point for the text section.
+	-Ttext-segment			While creating an ELF executable, it will set the address of the first byte of the text segment.
+	-Tdata					Use specific address as the starting point for the data section.
+	-Trodata				While creating an ELF executable or shared object for a target where read-only data is in its own segment seperate
+							from the executable text, it will read the address of the first byte of the text segment.
+	-Tldata-segment			When creating an ELF executable or shared object for x86-64 medium memory model, it will set the address of the
+							first byte of the ldata segment.
+	-Tbss					Use specific address as teh starting point for the bss section.
+	-t	--trace				Print the names of the input file as ld processes them.
+	-u	--undefined=[smbl]	Forces the symbol [smbl] to be in the output file as an undefined symbol.
+	-warn-common			Warn when a common symbol is being combined with another common symbol.
+	-warn-constructor		Warn if any global constructors are being used.
+	-warn-once				Warn once for each undefined symbols.
+	-warn-section-align		Warn if a section address is changed due to alignment.
+	--whole-archive			For specified archive files, include all of the file in the archieve.
+	-X	--discard-locals	Delete all temporary local symbols.
+	-x	--discard-all		Delete all local symbols.
