@@ -10,13 +10,13 @@ There are three kind of parameters in gprof parameter arsenal:
 	----------					-----------
 	-A	--annotated-source=[symspec]		Display source code of all functions, or only of the matching symbols if [symspec] is given.
 	-b	--brief					Don't display verbose output explaining the analysis field.
-	-C	--exec-counts=[symspec]			Print total tally of all functions, or only the function specified by [symspec] is it's set.
-	-i	--file-info				Display summery information about the profile data file.
+	-C	--exec-counts=[symspec]			Print total tally of all functions, or only the function specified by [symspec] if it's set.
+	-i	--file-info				Display summary information about the profile data file.
 	-I	--directory-path=[dirs]			Specify directory to search souce code.
 	-J	--no-annotated-source=[symspec]		Don't print annotated source code. However if [symspec] is set, don't print annotated source code only for functions specified by symspec.
 	-L	--print-path				Display full pathname of source files.
-	-p	--flat-profile=[symspec]		Display flat profiles for all functions or only the functions specified by [symspec] if its set. 
-	-P	--no-flat-profile=[symspec]		Don't display flat profile for any function, or just the function specified by [symspec] if its set.
+	-p	--flat-profile=[symspec]		Display flat profiles for all functions or only the functions specified by [symspec] if it's set.
+	-P	--no-flat-profile=[symspec]		Don't display flat profile for any function, or just the function specified by [symspec] if it's set.
 	-q	--graph=[symspec]			Print the call graph analysis. Do it only for [symspec] functions if it's set.
 	-Q	--no-graph=[symspec]			Don't display call graph analysis.
 	-y	--seperate-files			Generate annotated source code in seperate output file.
@@ -35,11 +35,11 @@ There are three kind of parameters in gprof parameter arsenal:
 	-a	--no-static				Don't analyze information about statically declared functions (private functions).
 	-c	--static-call-graph			Analyze information on child functions that were never called in the program.
 	-D	--ignore-non-functions			Ignore symbols that are not known to be function.
-	-k [from/to]					Delete from the call graph any arcs from symbols matching "symspec" from to those matchin symspec to.
+	-k [from/to]					Delete any arc from the call graph with symbols matching symspec "from" to those matchin symspec "to".
 	-l	--line					Analyze the program by line instead of function.
 	-m	--min-count=[num]			Analyze only functions called more than a specific number of time.
 	-n	--time [symspec]			Analyze time only for functions specified by [symspec].
-	-N	--no-time [symspec]			Don'r analyze time for [symspec] functions.
+	-N	--no-time [symspec]			Don't analyze time for [symspec] functions.
 	-z	--display-unused-functions		Mention all funtions in the flat profile, even those that aren't called.
 
 
@@ -47,9 +47,9 @@ There are three kind of parameters in gprof parameter arsenal:
 
 	Parameters					Description
 	----------					-----------
-	-d	--debug=[num]				Put gprof in debuf mode specifying debug level with [num].
+	-d	--debug=[num]				Put gprof in debug mode specifying debug level with [num].
 	-O	--file-formate=[name]			Specify the format of the profile data file.
-	-s	--sum					Just summerize the data in profile data file.
+	-s	--sum					Just summarize the data in profile data file.
 	-h 	--help					Print gprof help text and exit.
 	-v 	--version				Print gprof version information and exit.
 
@@ -63,6 +63,6 @@ Files produced by gprof:
 	Dynamic call graph and profile.
 
 3. gmon.sum
-	Summerize the dynamic call grpah and profile.
+	Summarize the dynamic call grpah and profile.
 
 To analyze a program with gprof, it must be compiled with "-pg" option.
