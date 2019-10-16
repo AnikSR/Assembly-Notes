@@ -1,0 +1,34 @@
+	Parameters							Description
+	----------							-----------
+	-a	--archive-header				If any file are archive, display the archive header information.
+	-b	--target=bfdnaem				Specify that the object-code format for the object file is "bfdname".
+	-C	--demangle[=style]				Demangle low-level symbols into user-level names.
+	-d	--disassemble					Display the assembler mnemonics for the machine instructions from "objfile".
+	-D	--dissassemble-all				Disassemble the content of all sections, not just those expected to contain instructions.
+	-e	--debugging-tags				Display debugging information in a format that compatibel with ctag tools.
+	-EL/-EB	--endian={big|little}		Specify the endianness of the object file.
+	-f	--file-headers					Display summery information from the overall header of each of the "objfile" file.
+	-F	--file-offsets					When disassembling sections, whenever a symbol is displayed, also display the file offset of the 
+										region of data that is about to be dumped.
+	-g	--debugging						Display debugging information.
+	-G	--stabs							Display the content of the debugged section.
+	-h	--section-headers/--headers		Display summery information of from the section headers of the object file.
+	-i	--info							Display list showing all the architecture available.
+	-j	--section=[name]				Display information only for the section [name].
+	-l	--line-numbers					Label the output with source code line number.
+	-m	--machine=[architecture]		Specify the architecture to use while disassembling.
+	-p	--private-headers				Print information specific to object file format.
+	-P	--private=[options]				Like "-p" but with comma seperated list [options] that depends on format.
+	--prefix=[Prefix]					Specify [Prefix] to add to the absolute path when used with -S.
+	--prefix-strip=[level]				Indicate how many initial directory names to strip off the hardwared absolute path.
+	--prefix-address					When disassembling, print address on each lines.
+	-r	--reloc							Print the relocation entries of the file.
+	-R	--dynamic-reloc					Print the dynamic relocation entries of the file.
+	-s	--full-content					Display the full contents of any section requested.
+	-S	--source						Display source code intermixed with disassembly.
+	--start-address=[address]			Start displaying data at the specified address.
+	--stop-address=[address]			Stop displaying data at the specified address.
+	--show-raw-insn						When disassembling instruction, print hex as well as symbolic form. This is the default.
+	--no-show-raw-insn					Opposite of --show-raw-insn.
+	--insn-width=[width]				Display [width] bytes on a single line on a single line while disassembling instructions.
+	-t	--syms							Print the symbol tables entries of the file.
