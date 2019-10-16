@@ -40,7 +40,7 @@ LOOP keeps jumping back to <label> until RCX is decremented to 0. So roughly it 
 	mov rcx, 17		|						|mov rcx, 17
 	DoIt:			|						|DoIt:
 		.   .   .	|						|	.   .   .
-		statements	|	Is equivalent to:	|	statements
+		statements	|	Is equivalent to:			|	statements
 		.   .   .	|						|	.   .   .
 		dec rcx		|						|	loop DoIt
 		jnz DoIt	|						|
