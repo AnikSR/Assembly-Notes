@@ -1,7 +1,7 @@
 Bit mapping of eflags register.
 
-Bit no.		  Nmemonic	  Elaboration					        Status & Description
--------		  --------	  -----------					        --------------------
+Bit no.     Nmemonic    Elaboration                 Status & Description
+-------     --------    -----------                 --------------------
   0         CF          Carry Flag                  0=No Carry, 1=Carry.
   1         N/A         Yet to be defined.          Always 1 in eflags.
   2         PF          Parity Flag                 1=Even Parity, 0=Odd Parity.
