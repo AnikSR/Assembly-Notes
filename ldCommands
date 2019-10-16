@@ -18,7 +18,7 @@
 	-i				Perform an incremental link.
 	-r	--relocatable		Generate a relocatable output, ie: generate an output that ld can take as input.
 	-rpath=<dir>			Add <dir> to runtime library search path.
-	-rpaht-link-<dir>		Specify a directory to to search for runtime shared library.
+	-rpaht-link-<dir>		Specify a directory to search for runtime shared library.
 	-shared/-Bshareable		Create a shared library. This is only supported for ELF, XCOFF and SunOS.
 	-S	--strip-debug		Omit debugger symbol information from output file.
 	-s	--strip-all		Omit all symbol information from output file.
