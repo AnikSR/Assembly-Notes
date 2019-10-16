@@ -2,26 +2,26 @@ Bit mapping of eflags register.
 
 Bit no.		  Nmemonic	  Elaboration					        Status & Description
 -------		  --------	  -----------					        --------------------
-  0				  CF			    Carry Flag		              0=No Carry, 1=Carry.
-  1				  N/A			    Yet to be defined.			    Always 1 in eflags.
-  2				  PF			    Parity Flag					        1=Even Parity, 0=Odd Parity.
-  3				  N/A			    Yet to be defined.			    N/A
-  4				  AF			    Auxilary Carry Flag			    Indicates carry in BCD operation. 0=No BCD Carry, 1=BCD Carry.
-  5				  N/A			    Yet to be defined.			    N/A
-  6				  ZF			    Zero Flag					          0=Operand didn't become 0, 1=Operand became zero. 
-  7				  SF			    Sign Flag					          0=Operand didn't become -ve, 1=Operand became -ve.
-  8				  TF			    Trap Flag					          Fascilitates single stepping like those done inside debugger.
-  9				  IF			    Interrupt Enable Flag		    Reserved by OS.
- 10				  DF			    Direction Flag				      0=Autoincrement towards down memory, 1=Autoincrement towards up memory.
- 11				  OF			    Overflow Flag				        0=Overflow in signed operation, 1=Overflow didn't occur in signed operation.
- 12				  IOPL		    I/O previledge level 0		  Reserved by OS.
- 13				  IOPL		    I/O previledge level 1		  Reserved by OS.
- 14				  NT			    Nested Task flag			      Reserved by OS.
- 15				  N/A			    Yet to be defined.			    N/A
- 16				  RF			    Resume Flag.				        Evil twin of Trap Flag. signals trapped single step resuming.
- 17				  VM			    Virtual 8086 mode flag		  Reserved by OS.
- 18				  AC			    Alignment check flag		    Reserved by OS.
- 19				  VIF			    Virtual Interrupt flag		  Reserved by OS.
- 20				  VIP			    Virtual Interrupt pending	  Reserved by OS.
- 21				  ID			    CPU ID						          If this bit can be changed by user space program, CPUID is available.
- 22 to 63		N/a			    Yet to be defined.			    N/A
+  0         CF          Carry Flag                  0=No Carry, 1=Carry.
+  1         N/A         Yet to be defined.          Always 1 in eflags.
+  2         PF          Parity Flag                 1=Even Parity, 0=Odd Parity.
+  3         N/A         Yet to be defined.          N/A
+  4         AF          Auxilary Carry Flag         Indicates carry in BCD operation. 0=No BCD Carry, 1=BCD Carry.
+  5         N/A         Yet to be defined.          N/A
+  6         ZF          Zero Flag                   0=Operand didn't become 0, 1=Operand became zero. 
+  7         SF          Sign Flag                   0=Operand didn't become -ve, 1=Operand became -ve.
+  8         TF          Trap Flag                   Fascilitates single stepping like those done inside debugger.
+  9         IF          Interrupt Enable Flag       Reserved by OS.
+ 10         DF          Direction Flag              0=Autoincrement towards down memory, 1=Autoincrement towards up memory.
+ 11         OF          Overflow Flag               0=Overflow in signed operation, 1=Overflow didn't occur in signed operation.
+ 12         IOPL        I/O previledge level 0      Reserved by OS.
+ 13         IOPL        I/O previledge level 1      Reserved by OS.
+ 14         NT          Nested Task flag            Reserved by OS.
+ 15         N/A         Yet to be defined.          N/A
+ 16         RF          Resume Flag.                Evil twin of Trap Flag. signals trapped single step resuming.
+ 17         VM          Virtual 8086 mode flag      Reserved by OS.
+ 18         AC          Alignment check flag        Reserved by OS.
+ 19         VIF         Virtual Interrupt flag      Reserved by OS.
+ 20         VIP         Virtual Interrupt pending   Reserved by OS.
+ 21         ID          CPU ID                      If this bit can be changed by user space program, CPUID is available.
+ 22 to 63   N/a         Yet to be defined.          N/A
