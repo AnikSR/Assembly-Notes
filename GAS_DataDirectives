@@ -1,0 +1,17 @@
+	Directive		Data Type
+	---------		---------
+	.ascii			Text string.
+	.asciz			Null-terminated text string.
+	.byte			Byte value.
+	.double			Double-precission floating point number.
+	.float			Single-precission floating point number.
+	.int			32-bit integer.
+	.long			64-bit integer.
+	.octa			16-byte integer.
+	.quad			8-byte integer.
+	.short			16-bit integer.
+	.single			Single precission floating point. Same as float.
+	.equ			Indicates constant value. Works very much like the #define directive of C.
+
+	.comm			Declares common memory area for data that is not initialized.
+	.lcomm			Declares local common memory area for data that is not initialized.
