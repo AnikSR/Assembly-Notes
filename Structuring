@@ -1,0 +1,78 @@
+These are opcodes, etticates and  features necessary to divide assembly program in different structures like subroutine and for handling
+those procedure. The minimum opcodes necessary for an assembly procedure are:
+
+CALL, RET, 
+
+
+# CALL
+
+Syntax:
+	call <lebel>
+	
+CALL saves the current CPU state in the stack and jumps to the memory address pointed to by <label>, which can be direct memory address as
+well as a register if its holding a memory address. The main difference between CALL and jumps instructions is, CALL is designed to call
+procedures, so it saves the current CPU/Core state before making the jump. 
+
+
+
+# RET
+
+Syntax:
+	ret
+
+RET is the reciprolcal opcode of CALL. When encountered, the CPU loads the previous CPU state from stack and jumps back to the address stored 
+at the top of the stack, thus returning to the calling function. RET can also take an optional argument.
+
+
+# Local lebels:
+---------------
+	Local lebels start with a "." and only visible from the global lebel immediately preceeding it. Example:
+		NewMag:
+			.
+			.
+			.
+		Rotation:
+			.
+			.
+			.
+		.DoCycle:
+		 .	.  .
+		NewPeg:
+
+Here in this example the lebel ".DoCycle" is only visible from the global lebel "Rotation". Its invisible from "NewMag" and "NewPeg". So, this
+".DoCycle" lebel is local to global lebel "Rotation".
+
+
+# Libraries:
+------------
+	Usually a C/C++ or JAVA program can be divided into different files: one contains the main() other contains definations or declarations 
+of necessary function and classes that is necessary for the main() to work. Similarly an assembly program can be divided into different files.
+One of them contains _start(). Others contains various procedures and data necessary for the program to work. For this:
+
+1) Lebels (designating procedure or data) that are defined in a seperate file but will be used in current file must be followed by "extern"
+modifier. Example:
+
+	extern ThisDate
+	extern DoThis, OtherWork
+			.
+			.
+			.
+	CurrentProcedure:
+		.  .  .
+		call DoThis
+		.  .  .
+		mov rax, [ThisDate]
+		.  .  .
+		call OtherWork
+		.  .  .
+
+The variable "ThisDate" and functions "DoThis" and "OtherWork" are described in a seperate file. So to use them is current listing they must
+be designated "extern".
+
+2) Lebels that are to be used by other files but are defined in current folder must be followed by "global" modifier. Following from previous
+example, the extern lebels must be declared as:
+
+	global ThisDate
+	global DoThis, OtherWork
+
+In the file where they are defined.
