@@ -1,0 +1,53 @@
+Bitwise logical ops:
+--------------------
+AND, OR, XOR, NOT
+
+
+Shift and rotate instructions:
+------------------------------
+SHR, ROR, RCR, SHL, ROL, RCL
+
+
+Bit testing:
+------------
+TEST, BT
+
+# TEST
+
+Syntax:
+-------
+	test <dest>, <bit mask>
+
+Description:
+------------
+TEST performs a AND operation between the <dest> and <bit mask> operands, then sets the flags as AND would have done and then discards the
+resutl, so <dest> operatnd remains unaffected.
+
+
+# BT - Bit Test
+
+Syntax:
+-------
+	bt <value containing bit>, <bit number>
+
+Description:
+------------
+BT tests the bit specified by <bit number> in <value containing bit> and sets CF accordingly. For example:
+
+	bt rax, 32	; Checks the bit 32 and carries the value to CF. If bit32 is on then sets CF, if its off then turns CF off.
+
+BT can take memory and direct value as its first argument as well.
+
+
+# BTS and BTR - Bit Test and Set/Remove.
+
+Syntax:
+-------
+	bts	<value containing bit>, <bit number>
+	btr <value containing bit>, <bit number>
+
+Description:
+------------
+	BTS and BTR works the same as BT. But in addition of testing, BTS sets the target bit to 1 and BTR to 0. Note: BTS or BTR  first transfer
+the current value of the trget bit to CF, then sets or clears the bit. The set/clear operation has no bearing on their test result.
+current value of the target bit to CF

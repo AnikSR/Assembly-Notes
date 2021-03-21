@@ -1,0 +1,7 @@
+These operations set or clear various flags:
+
+CLC	: Clear Carry flag.
+STC	: Set Carry flag.
+
+CLD	: Clear Direction flag.
+STD	: Set Direction flag.
