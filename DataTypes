@@ -15,7 +15,7 @@ There are three type of data: Immediate data, Register data and Memory data.
 "Memory data" are held in the part of system memory that is "owned" by the program. Unlike register data, data in one memory location
 can't be moved to another memory location directly. Thus:
 
-	mov len, index      ; is invlid. Here "len" and "index" are variables. Variables are representative of memory locations.
+	mov len, index	; is invlid. Here "len" and "index" are variables. Variables are representative of memory locations.
 
 This is the reason why in high level languages its impossible to exchange the value of two variables with one instruction. But its perfectly
 valid to copy a register data or an immediate data to memory. Thus:
@@ -34,7 +34,7 @@ Declaration of a memory data consists of two parts: Identifier and Data Definati
 by its value. Example:
 
 	BaseNo	  dq	12345688		; "BaseNo" is the variable name, dq = data quad-word is size, 12345688 is the value.
-	SysStr	  db	"Hello, World!"	; For a string or any type of array, size of individual items goes to the size field.
+	SysStr	  db	"Hello, World!"		; For a string or any type of array, size of individual items goes to the size field.
 
 #Accessing Data:
 ----------------
@@ -97,12 +97,12 @@ specifically commands to write a single byte to the memory location specified by
 #Data type for declaration:
 ---------------------------
 
-	db		data byte				8-bit
-	dw		data word				16-bit
-	dd		data doubleword			32-bit
-	dq		data quadword			64-bit
+	db		data byte		8-bit
+	dw		data word		16-bit
+	dd		data doubleword		32-bit
+	dq		data quadword		64-bit
 	ddq		data double-quadword	128-bit (integer)
-	dt		[not known]				128-bit (float)
+	dt		[elaboration unknown]	128-bit (float)
 
 #BSS section syntax:
 --------------------
@@ -115,4 +115,4 @@ specifically commands to write a single byte to the memory location specified by
 	resw	reserve word			16-bit
 	resd	reserve doubleword		32-bit
 	resq	reserve quadword		64-bit
-	resdq	reserve double-quadword 128-bit
+	resdq	reserve double-quadword 	128-bit
