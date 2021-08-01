@@ -33,7 +33,7 @@ Declaration of a memory data consists of two parts: Identifier and Data Definati
 (not assembler or the executable) identify a memory data using this. The Data Define Directive is made up of the size of the variable followed
 by its value. Example:
 
-	BaseNo	  dq	12345688	; "BaseNo" is the variable name, dq = data quad-word is size, 12345688 is the value.
+	BaseNo	  dq	12345688		; "BaseNo" is the variable name, dq = data quad-word is size, 12345688 is the value.
 	SysStr	  db	"Hello, World!"	; For a string or any type of array, size of individual items goes to the size field.
 
 #Accessing Data:
@@ -89,3 +89,30 @@ The size comparison is specially important while directly writting to memory. Fo
 	mov [Msg], byte 'G'
 
 specifically commands to write a single byte to the memory location specified by Msg. This changes the message to "Gello, world!".
+
+#Data section syntax:
+---------------------
+	<variable name>		<data type>		<initial value>
+
+#Data type for declaration:
+---------------------------
+
+	db		data byte				8-bit
+	dw		data word				16-bit
+	dd		data doubleword			32-bit
+	dq		data quadword			64-bit
+	ddq		data double-quadword	128-bit (integer)
+	dt		[not known]				128-bit (float)
+
+#BSS section syntax:
+--------------------
+	<variable name>		<res data type>		<count>
+
+#Reserve type for declaraion:
+-----------------------------
+	
+	resb	reserve byte			8-bit
+	resw	reserve word			16-bit
+	resd	reserve doubleword		32-bit
+	resq	reserve quadword		64-bit
+	resdq	reserve double-quadword 128-bit
